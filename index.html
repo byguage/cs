@@ -5,57 +5,23 @@ window.open = function() {};
 </script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none';">
 <head>
-    <title></title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>防止非法浏览器插入广告</title>
 </head>
 <body>
-<style type="text/css">
-    #textarea {
-        width: 500px;
-        height: 200px;
-        margin: 0 auto;
-        display: block;
-    }
-    .div {
-        width: 800px;
-        margin: 0 auto;
-    }
-</style>
-    <textarea id="textarea">    
-    </textarea>
-    <!-- <script type="text/javascript"> alert("我是javascript代码！");</script> --> 
-    <div class="div">
-        <button id="re">转义</button> <button id="re2">反转义</button>
-        <h4>转义</h4>
-        <p id="show"></p>
-        <h4>反转义</h4>
-        <p id="show2"></p>
-    </div>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-    (function(){
-        function htmlEncode(value){  
-            return $('<span/>').text(value).html();        
+    <script>
+        if (navigator.userAgent.indexOf('IllegalBrowser') !== -1) {
+            const iframes = document.getElementsByTagName('iframe');
+            for (let i = 0; i < iframes.length; i++) {
+                const iframe = iframes[i];
+                if (iframe.src.indexOf('ads.com') !== -1) {
+                    iframe.remove();
+                }
+            }
+            if (location.protocol !== 'https:') {
+                location.href = 'https:' + location.href.substring(location.protocol.length);
+            }
         }
-
-        function htmlDecode(value){  
-            return $('<span/>').html(value).text();     
-        }
-        $("#re").click(function() {
-            var $textarea = $("#textarea");
-            var $show = $("#show");             
-            var str = $textarea.val();
-            str = htmlEncode(str);
-            $show.text(str);
-        });
-        $("#re2").click(function() {
-            var $textarea = $("#textarea");
-            var $show = $("#show2");
-            var str = $textarea.val();
-            str = htmlDecode(str);
-            $show.text(str); //要注意这里哈。text()和html方法的不同
-        });
-    })();
-</script>
+    </script>
 </body>
 </html>
