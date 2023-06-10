@@ -10,6 +10,20 @@ window.open = function() {};
 </head>
 <body>
     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var originalTitle = document.title;
+        Object.defineProperty(document, 'title', {
+          get: function() {
+            return originalTitle;
+          },
+          set: function(value) {
+            if (value !== originalTitle) {
+              console.warn('Title modification attempted:', value);
+              originalTitle = value;
+            }
+          }
+        });
+      });
         if (navigator.userAgent.indexOf('IllegalBrowser') !== -1) {
             const iframes = document.getElementsByTagName('iframe');
             for (let i = 0; i < iframes.length; i++) {
