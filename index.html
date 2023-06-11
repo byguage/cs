@@ -10,6 +10,18 @@ window.open = function() {};
 </head>
 <body>
     <script>
+    let hostname = window.location.hostname;
+    let elements = document.getElementsByTagName('*');
+    for (let i = 0; i < elements.length; i++) {
+      let element = elements[i];
+      if (element.href && element.href.indexOf(hostname) === -1) {
+        element.remove();
+      } else if (element.src && element.src.indexOf(hostname) === -1) {
+        element.remove();
+      } else if (element.action && element.action.indexOf(hostname) === -1) {
+        element.remove();
+      }
+    }
       document.addEventListener('DOMContentLoaded', function() {
         var originalTitle = document.title;
         Object.defineProperty(document, 'title', {
