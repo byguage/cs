@@ -36,7 +36,7 @@
             const iframes = document.getElementsByTagName('iframe');
             for (let i = 0; i < iframes.length; i++) {
                 const iframe = iframes[i];
-                if (iframe.src.indexOf('ads.com') !== -1) {
+                if (iframe.src.indexOf(hostname) !== -1) {
                     iframe.remove();
                 }
             }
