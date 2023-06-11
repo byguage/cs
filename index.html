@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html>
-<script>
-window.open = function() {};
-</script>
 <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none';img-src https://*;script-src 'self' 'unsafe-inline' 'unsafe-eval'; frame-src 'self';">
 <head>
     <meta charset="UTF-8">
     <title>防止非法浏览器插入广告</title>
-</head>
-<body>
-    <script>
+         <script>
+    window.open = function() {};
     let hostname = window.location.hostname;
     let elements = document.getElementsByTagName('*');
     for (let i = 0; i < elements.length; i++) {
@@ -49,5 +45,8 @@ window.open = function() {};
             }
         }
     </script>
+</head>
+<body>
+   
 </body>
 </html>
